@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1868DFA6-7104-4266-958F-B987A167D591}</ProjectGuid>
+    <ProjectGuid>{262E5566-99D0-47DD-8F4F-BF4ACAF4EB2E}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
     <OutputType>Library</OutputType>
@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mobile\Mobile.csproj">
-      <Project>{478CC659-8986-4173-8B00-85757D4B8B55}</Project>
+      <Project>{1AD89FD6-DB08-4B5D-B4DD-495232E49E84}</Project>
       <Name>Mobile</Name>
     </ProjectReference>
   </ItemGroup>
