@@ -9,12 +9,14 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       
-    - name: Android Build
+    - name: Backend Build
+      timeout-minutes: 10
       run: |      
         cd Bakckend
         nuget restore
         msbuild Bakckend.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
     - name: NUnit tests  
+      timeout-minutes: 10
       run: |
         ls 
         cd Bakckend.Tests
