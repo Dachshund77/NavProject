@@ -1,0 +1,21 @@
+name: Backend CI
+
+on: 
+  push
+
+jobs:
+  Android:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Android Build
+      run: |      
+        cd Bakckend
+        nuget restore
+        msbuild Bakckend.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+    - name: NUnit tests  
+      run: |
+        ls 
+        cd Bakckend.Tests
+        dotnet test Bakckend.Tests.csproj
