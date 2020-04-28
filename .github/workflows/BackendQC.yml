@@ -1,0 +1,29 @@
+name: Quality control
+
+on: 
+  push
+
+jobs:
+  TestRun:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Nuget Restore
+      timeout-minutes: 10
+      run: |      
+        cd CodeBase
+        ls
+        nuget restore
+              
+    - name: Backend Build
+      timeout-minutes: 10
+      run: |      
+        cd CodeBase/Backend
+        msbuild Backend.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
+    - name: Backend XUnit tests  
+      timeout-minutes: 10
+      run: |
+        cd CodeBase/Backend.Tests
+        dotnet test Backend.Tests.csproj
