@@ -1,0 +1,37 @@
+name: Quality control
+
+on: 
+  push
+
+jobs:
+  TestRun:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Nuget Restore
+      timeout-minutes: 10
+      run: |      
+        cd CodeBase
+        ls
+        nuget restore
+        
+    - name: Android Build
+      timeout-minutes: 10
+      run: |      
+        cd CodeBase
+        cd Mobile
+        cd Mobile.Android
+        msbuild Mobile.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
+    - name: Xamarin XUnit tests  
+      timeout-minutes: 10
+      run: |
+        cd CodeBase/Mobile.Tests
+        dotnet test Mobile.Tests.csproj
+    - name: Commons Build
+      timeout-minutes: 10
+      run: |  
+        cd CodeBase/Commons
+        msbuild Commons.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
