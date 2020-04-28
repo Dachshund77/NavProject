@@ -1,0 +1,21 @@
+name: Commons CI
+
+on: 
+  push
+
+jobs:
+  Android:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Common Build
+      run: |      
+        cd Commons
+        nuget restore
+        msbuild Commons.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+    - name: NUnit tests  
+      run: |
+        ls 
+        cd Commons.Tests
+        dotnet test Commons.Tests.csproj
