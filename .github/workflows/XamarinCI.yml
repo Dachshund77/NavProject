@@ -14,7 +14,7 @@ jobs:
       run: |      
         cd CodeBase
         ls
-        #nuget restore
+        nuget restore
         ls
         cd Mobile
         ls
