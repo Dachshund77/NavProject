@@ -1,0 +1,30 @@
+name: Quality control
+
+on: 
+  push
+
+jobs:
+  TestRun:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Nuget Restore
+      timeout-minutes: 10
+      run: |      
+        cd CodeBase
+        ls
+        nuget restore
+      
+    - name: Commons Build
+      timeout-minutes: 10
+      run: |  
+        cd CodeBase/Commons
+        msbuild Commons.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
+    - name: Commons XUnit tests  
+      timeout-minutes: 10
+      run: |
+        cd CodeBase/Commons.Tests
+        dotnet test Commons.Tests.csproj
+        
