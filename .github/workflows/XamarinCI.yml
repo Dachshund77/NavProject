@@ -12,9 +12,11 @@ jobs:
     - name: Android Build
       timeout-minutes: 10
       run: |      
-        cd Mobile
+        cd CodeBase
         ls
         #nuget restore
+        ls
+        cd Mobile
         ls
         cd Mobile.Android
         ls
