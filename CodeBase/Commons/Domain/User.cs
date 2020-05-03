@@ -136,7 +136,7 @@ namespace Commons.Domain
             //Test
             if (PlainPassword == null)
             {
-                returnList.Add("Password may not be negative.");
+                returnList.Add("Password may not be null.");
                 return returnList;
             }
             if (PlainPassword.Length < 6)
@@ -173,7 +173,7 @@ namespace Commons.Domain
             //Test
             if (Email == null)
             {
-                returnList.Add("Email may not be negative.");
+                returnList.Add("Email may not be null.");
                 return returnList;
             }
             if (!Email.Contains("@"))
