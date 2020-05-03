@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Interfaces;
 using Commons.Domain;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -20,45 +21,101 @@ namespace Backend.Controllers
         }
 
         [HttpPost("/Baskets/{basketID}")]
-        public ActionResult<Transaction> PostTransaction(Transaction transaction, int basketID) //TODO need to reference a basket
+        public ActionResult<Transaction> PostTransaction(Transaction transaction, int basketID)
         {
-            //Will probably be handle by navision automaticly in the backend
-            //Probably still need that i guess... idk payment is weird since its not propper secured without 3rd party software
+            /*
+             *  Not need since thiswil lbe handeld by navision and not by our clients.
+             */
             return StatusCode(501);
         }
 
         [HttpPut("{transactionID}")]
         public ActionResult<Transaction> PutTransaction(Transaction transaction, int transactionID)
         {
-            //Should probably no be added
+            //Same reason then PostTransaction endpoint
             return StatusCode(501);
         }
 
         [HttpDelete("{transactionID}")]
         public ActionResult DeleteTransaction(int transactionID)
         {
-            //Low priortiy, idk if this even is needed
+            //Same rasons as PostTransaction
             return StatusCode(501);
         }
 
         [HttpGet("{transactionID}")]
         public ActionResult<Transaction> GetTransaction(int transactionID)
         {
-            return StatusCode(501); //We will need that, should also fetch realted data i think
+            try
+            {
+                //Test for null
+                if (transactionID == 0) //Ints default to 0 if not set 
+                {
+                    return BadRequest("JSON Body was Empty!");
+                }
+
+                //Retrieve values from Servie
+                Transaction returnTransaction = navTransactionsService.GetTransaction(transactionID);
+
+                //Return requested ressources
+                return Ok(returnTransaction);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
         }
 
         [HttpGet("/Baskets/{basketID}")]
         public ActionResult<List<Transaction>> GetTransactionsOfBasket(int basketID)
         {
-            //We will need that, should return all transaction of specifieid oder
-            return StatusCode(501);
+            try
+            {
+                //Test for null
+                if (basketID == 0) //Ints default to 0 if not set 
+                {
+                    return BadRequest("JSON Body was Empty!");
+                }
+
+                //Retrieve values from Servie
+                List<Transaction> returnTransactions = navTransactionsService.GetTransactionsOfBasket(basketID);
+
+                //Return requested ressources
+                return Ok(returnTransactions);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
         }
 
         [HttpGet("/Users/{userName}")]
         public ActionResult<List<Transaction>> GetTransactionsOfUser(string userName)
         {
-            //Makes sense to have that
-            return StatusCode(501);
+            try
+            {
+                //Test for null
+                if (userName == null) 
+                {
+                    return BadRequest("JSON Body was Empty!");
+                }
+
+                //Retrieve values from Servie
+                List<Transaction> returnTransactions = navTransactionsService.GetTransactionsOfUser(userName);
+
+                //Return requested ressources
+                return Ok(returnTransactions);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
         }
     }
 }

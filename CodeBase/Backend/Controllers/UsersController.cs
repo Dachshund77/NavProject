@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -23,29 +24,57 @@ namespace Backend.Controllers
         [HttpPost]
         public ActionResult<User> PostUser(User user)
         {
-            //Will probably not be implemented, as adding new users will be handeled via registration.
+            /*
+             * A user will register itself via the AuthController,
+             * This is because there are certain formalities that need to be fulfilled
+             * This endpoint would be an admin way to cirumvent this
+             * But our admins will likely use navision directly
+             */
             return StatusCode(501);
         }
 
         [HttpPut("{userName}")]
         public ActionResult<User> PutUser(User user, string userName)
         {
-            //Updating of user values should follow strict rules, like we lets a user overwrite the passowrd
-            //Probabl will not make the cut
+            /*
+             * Will not be implemented, same reason as PostUser endpoint
+             */
             return StatusCode(501);
         }
 
         [HttpDelete("{userName}")]
         public ActionResult DeleteUser(string userName)
         {
-            //Low priortiy, if a user want to dele himself?
+            /*
+             * Will nit be implemented, same reason as PostUser endpooint
+             */
             return StatusCode(501);
         }
 
+        //TODO: Need authentication, authorisation.
         [HttpGet("{userName}")]
         public ActionResult<User> GetUser(string userName)
         {
-            return StatusCode(501); //We will need that, should also fetch realted data i think
+            try
+            {
+                //Test for null
+                if(userName == null)
+                {
+                    return BadRequest("JSON Body was Empty!");
+                }
+
+                //Retrieve values from Servie
+                User returnUser = navUsersService.GetUser(userName);
+
+                //Return requested ressources
+                return Ok(returnUser);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
         }
     }
 }
