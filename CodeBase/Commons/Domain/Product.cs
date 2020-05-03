@@ -1,7 +1,8 @@
-﻿using Backend.Controllers;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace Commons.Domain
@@ -61,64 +62,208 @@ namespace Commons.Domain
             this.BarCode = other.BarCode;
         }
 
-        public bool IsValid(out IEnumerable<string> invalidReasons)
+        public bool IsValid(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidReasons()
+        private List<string> InvalidReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            returnList.AddRange(InvalidIDReasons());
+            returnList.AddRange(InvalidNameReasons());
+            returnList.AddRange(InvalidDescriptionReasons());
+            returnList.AddRange(InvalidPriceReasons());
+            returnList.AddRange(InvalidQuantityReasons());
+            returnList.AddRange(InvalidBarcodeReasons());
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidID(out IEnumerable<string> invalidReason)
+        public bool HasValidName(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidNameReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidIDReasons()
+        private List<string> InvalidNameReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            if (Name == null)
+            {
+                returnList.Add("Name may not be null.");
+                return returnList;
+            }           
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidDescription(out IEnumerable<string> invalidReasons)
+        public bool HasValidID(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidIDReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidDescriptionReasons()
+        private List<string> InvalidIDReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test  
+            if (ID < 0)
+            {
+                returnList.Add("ID may not be negative.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidPrice(out IEnumerable<string> invalidReasons)
+        public bool HasValidDescription(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidDescriptionReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidPriceReasons()
+        private List<string> InvalidDescriptionReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            if (Description == null)
+            {
+                returnList.Add("Description may not be null.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidQuantity(out IEnumerable<string> invalidReasons)
+        public bool HasValidPrice(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidPriceReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidQuantityReasons()
+        private List<string> InvalidPriceReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (Price < 0)
+            {
+                returnList.Add("Price may not be negative.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidBarCode(out IEnumerable<string> invalidReason)
+        public bool HasValidQuantity(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidQuantityReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidBarcodeReasons()
+        private List<string> InvalidQuantityReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (Quantity < 0 )
+            {
+                returnList.Add("Quantity may not be negative.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
+        }
+
+        public bool HasValidBarCode(out List<string> invalidReasons)
+        {
+            invalidReasons = InvalidBarcodeReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private List<string> InvalidBarcodeReasons()
+        {
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            if (BarCode == null)
+            {
+                returnList.Add("Barcode may not be null.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
         }
 
         /// <summary>

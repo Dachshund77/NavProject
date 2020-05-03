@@ -49,44 +49,172 @@ namespace Commons.Domain
                 this.Baskets.Add(new Basket(b));
             }
         }
-        public bool IsValid(out IEnumerable<string> invalidReasons)
+
+        public bool IsValid(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidReasons()
+        private List<string> InvalidReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            returnList.AddRange(InvalidUserNameReasons());
+            returnList.AddRange(InvalidPasswordReasons());
+            returnList.AddRange(InvalidEmailReasons());
+            returnList.AddRange(InvalidBasketsReasons());
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidPassword(out IEnumerable<string> invalidReasons)
+        public bool HasValidUserName(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidUserNameReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidPasswordReasons()
+        private List<string> InvalidUserNameReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (PlainPassword == null)
+            {
+                returnList.Add("UserName may not be negative.");
+                return returnList;
+            }
+            if (PlainPassword.Length < 6)
+            {
+                returnList.Add("Password must be at least 6 letters long.");
+            }
+            if (PlainPassword.Length > 50)
+            {
+                returnList.Add("Password must be less 50 or less charakters.");
+            }
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidEmail(out IEnumerable<string> invalidReasons)
+        public bool HasValidPassword(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidPasswordReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidEmailReasons()
+        private List<string> InvalidPasswordReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (PlainPassword == null)
+            {
+                returnList.Add("Password may not be negative.");
+                return returnList;
+            }
+            if (PlainPassword.Length < 6)
+            {
+                returnList.Add("Password must be at least 6 letters long.");
+            }
+            if (PlainPassword.Length > 50)
+            {
+                returnList.Add("Password must be less 50 or less charakters.");
+            }
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidBaskets(out IEnumerable<string> invalidReasons)
+        public bool HasValidEmail(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidEmailReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidBasketsReasons()
+        private List<string> InvalidEmailReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (Email == null)
+            {
+                returnList.Add("Email may not be negative.");
+                return returnList;
+            }
+            if (!Email.Contains("@"))
+            {
+                returnList.Add("Email must contain @.");
+            }
+
+            //Return
+            return returnList;
+        }
+
+        public bool HasValidBaskets(out List<string> invalidReasons)
+        {
+            invalidReasons = InvalidBasketsReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private List<string> InvalidBasketsReasons()
+        {
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            foreach (Basket b in Baskets)
+            {
+                if (b.IsValid(out List<string> invalidReasons))
+                {
+                    returnList.AddRange(invalidReasons);
+                    break;
+                }
+            }
+
+            //Return
+            return returnList;
         }
 
         /// <summary>

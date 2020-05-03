@@ -45,54 +45,141 @@ namespace Commons.Domain
             this.Amount = other.Amount;
         }
 
-        public bool IsValid(out IEnumerable<string> invalidReasons)
+        public bool IsValid(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidReasons()
+        private List<string> InvalidReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            returnList.AddRange(InvalidIDReasons());
+            returnList.AddRange(InvalidTimePaidReasons());
+            returnList.AddRange(InvalidPaymentTypeReasons());
+            returnList.AddRange(InvalidAmountReasons());          
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidID(out IEnumerable<string> invalidReasons)
+        public bool HasValidID(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidIDReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidIDReasons()
+        private List<string> InvalidIDReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (ID < 0)
+            {
+                returnList.Add("ID may not be negative.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidTimePaid(out IEnumerable<string> invalidReasons)
+        public bool HasValidTimePaid(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidTimePaidReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidTimePaidReasons()
+        private List<string> InvalidTimePaidReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            //Well it is allowed to be nulli guess?
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidPaymentType(out IEnumerable<string> invalidReasons)
+        public bool HasValidPaymentType(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidPaymentTypeReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidPaymentTypeReasons()
+        private List<string> InvalidPaymentTypeReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            //No reason so far
+
+
+            //Return
+            return returnList;
         }
 
-        public bool IsValidAmount(out IEnumerable<string> invalidReasons)
+        public bool HasValidAmount(out List<string> invalidReasons)
         {
-            throw new NotImplementedException();
+            invalidReasons = InvalidAmountReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private IEnumerable<string> InvalidAmountReasons()
+        private List<string> InvalidAmountReasons()
         {
-            throw new NotImplementedException();
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (Amount < 0)
+            {
+                returnList.Add("Amount may not be negative.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
         }
 
         /// <summary>
