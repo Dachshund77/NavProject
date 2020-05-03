@@ -1,17 +1,51 @@
-﻿using System;
+﻿using Backend.Controllers;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Commons.Domain
 {
-    public class Product
+    public class Product : BaseDomain
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Price { get; set; }
-        public int Quantity { get; set; }
-        public string BarCode { get; set; } //TODO: Barcode implementation might change
+
+        private int id;
+        private string name;
+        private string description;
+        private double price;
+        private int quantity;
+        private string barcode;
+
+        public int ID
+        {
+            get { return id; }
+            set { SetProperty(ref id, value); }
+        }
+        public string Name
+        {
+            get { return name; }
+            set { SetProperty(ref name, value); }
+        }
+        public string Description
+        {
+            get { return description; }
+            set { SetProperty(ref description, value); }
+        }
+        public double Price
+        {
+            get { return price; }
+            set { SetProperty(ref price, value); }
+        }
+        public int Quantity
+        {
+            get { return quantity; }
+            set { SetProperty(ref quantity, value); }
+        }
+        public string BarCode  //TODO: Barcode implementation might change
+        {
+            get { return barcode; }
+            set { SetProperty(ref barcode, value); }
+        }
 
         /// <summary>
         /// Copy Constructor, creates deep copy.
@@ -107,7 +141,7 @@ namespace Commons.Domain
                 return true;
             }
 
-            if(this.ID != other.ID)
+            if (this.ID != other.ID)
             {
                 return false;
             }
