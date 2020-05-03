@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Commons.Domain;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Backend.Controllers
+{
+    public class ProductsController : Controller
+    {
+        [HttpPost]
+        public ActionResult<Product> PostProduct(Product product)
+        {
+            //Probably wont be needed
+            return StatusCode(501);
+        }
+
+        [HttpPut("{productID}")]
+        public ActionResult<Product> PutProduct(Product product, int productID)
+        {
+            //Probably wont be added, since the adding updating of product will be direct in navision...
+            return StatusCode(501);
+        }
+
+        [HttpDelete("{productID}")]
+        public ActionResult DeleteProduct(int productID)
+        {
+            //no need as its done in navision directly
+            return StatusCode(501);
+        }
+
+        [HttpGet("{productID}")]
+        public ActionResult<Product> GetProduct(int productID)
+        {
+            return StatusCode(501); //We will need that
+        }
+
+        [HttpGet("Baskets/{basketID}")]
+        public ActionResult<List<Product>> GetProductsOfBasket(int basketID)
+        {
+            return StatusCode(501); //We will need that, fetches all products of basket
+        }
+    }
+}
