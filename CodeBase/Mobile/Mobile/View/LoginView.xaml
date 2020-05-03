@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Mobile.LoginView"
+             >
+
+    <Grid BackgroundColor="#D8D8D8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+
+        <Grid RowSpacing="20" Grid.Row="1" Margin="20,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="shopping.png" Opacity="0.8" HeightRequest="90" VerticalOptions="EndAndExpand"/>
+                <Entry Grid.Row="1" Placeholder="Your e-mail" PlaceholderColor="Black" FontSize="16"/>
+                <Entry Grid.Row="2" Placeholder="Password" PlaceholderColor="Black" FontSize="16"/>
+                <Button Text="Login" Clicked="CheckUser" BackgroundColor="#04B431" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="3"/>
+
+                
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                    <Label Text="OR" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
+                    <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                </Grid>
+
+                
+                <Button Text="Signup" Clicked="Button_Clicked" BackgroundColor="#3897f0" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="5"/>
+
+            
+
+            </Grid>
+           
+        </Grid>
+
+</ContentPage>

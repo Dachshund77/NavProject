@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Mobile.View.WelcomeDetail"
+             >
+
+
+    <Grid BackgroundColor="#D8D8D8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+
+        <Grid RowSpacing="20" Grid.Row="1" Margin="20,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+        
+                </Grid.RowDefinitions>
+
+        <StackLayout VerticalOptions="Center">
+                        <Label Text="Get started, scan the barcode with your camera:" HorizontalTextAlignment="Center" FontSize="Medium" TextColor="Black" Margin="50,0,50,0"/>
+
+            <StackLayout Padding=".7" BackgroundColor="Black"  VerticalOptions="Center" HorizontalOptions="Center">
+                <BoxView Grid.Row="3" Color="#D8D8D8" WidthRequest="250" HeightRequest="200"/>
+            </StackLayout>
+
+        </StackLayout>
+
+                <Button Text="Scan now" Clicked="StartScanner" BackgroundColor="#2E9AFE" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="4"/>
+            </Grid>
+        </Grid>
+</ContentPage>
