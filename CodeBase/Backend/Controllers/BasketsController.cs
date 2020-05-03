@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,13 @@ namespace Backend.Controllers
     [ApiController]
     public class BasketsController : Controller
     {
+        private readonly INavBasketsService navBasketsService;
+
+        public BasketsController(INavBasketsService navBasketsService)
+        {
+            this.navBasketsService = navBasketsService;
+        }
+
         [HttpPost("/Users/{userName}")] //Needs reference to the realted user
         public ActionResult<Basket> PostBasket(Basket basket, string userName)
         {     
@@ -25,7 +33,7 @@ namespace Backend.Controllers
             return StatusCode(501);
         }
 
-        [HttpPut("{basketID}/AddProduct/{productID}/Quantity/{quantity}")] 
+        [HttpPut("{basketID}/AddProduct/{productID}/Quantity/{quantity}")]  //I think this can be combined into one 
         public ActionResult<Basket> AddProductToBasket(Basket basket, int basketID, int productID, int quantity)
         {
             //Will probabl need that when initalising a basket

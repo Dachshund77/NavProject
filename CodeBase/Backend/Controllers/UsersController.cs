@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,13 @@ namespace Backend.Controllers
     [ApiController]
     public class UsersController : Controller
     {
+        private readonly INavUsersService navUsersService;
+
+        public UsersController(INavUsersService navUsersService)
+        {
+            this.navUsersService = navUsersService;
+        }
+
         [HttpPost]
         public ActionResult<User> PostUser(User user)
         {

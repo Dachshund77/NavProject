@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,14 @@ namespace Backend.Controllers
     [ApiController]
     public class TransactionsController : Controller
     {
+
+        private readonly INavTransactionsService navTransactionsService;
+
+        public TransactionsController(INavTransactionsService navTransactionsService)
+        {
+            this.navTransactionsService = navTransactionsService;
+        }
+
         [HttpPost("/Baskets/{basketID}")]
         public ActionResult<Transaction> PostTransaction(Transaction transaction, int basketID) //TODO need to reference a basket
         {

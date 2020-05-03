@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,13 @@ namespace Backend.Controllers
     [ApiController]
     public class ProductsController : Controller
     {
+        private readonly INavProductsService navProductsService;
+
+        public ProductsController(INavProductsService navProductsService)
+        {
+            this.navProductsService = navProductsService;
+        }
+
         [HttpPost]
         public ActionResult<Product> PostProduct(Product product)
         {

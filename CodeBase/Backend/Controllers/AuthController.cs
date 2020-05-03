@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,13 @@ namespace Backend.Controllers
     [ApiController]
     public class AuthController : Controller
     {
+        private readonly INavAuthService navAuthService;
+
+        public AuthController(INavAuthService navAuthService)
+        {
+            this.navAuthService = navAuthService;
+        }
+
         [HttpPost("/Login")]
         public ActionResult<string> LogIn(User user) //Return a token 
         {        
