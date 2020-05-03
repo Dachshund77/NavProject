@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [ApiController]
     public class ProductsController : Controller
     {
         [HttpPost]
         public ActionResult<Product> PostProduct(Product product)
         {
             //Probably wont be needed
+            //Its for posting a new product
             return StatusCode(501);
         }
 

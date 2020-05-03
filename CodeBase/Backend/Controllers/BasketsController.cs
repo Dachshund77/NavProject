@@ -32,7 +32,7 @@ namespace Backend.Controllers
             return StatusCode(501);
         }
 
-        [HttpPost("/AddProduct/{productID}/Quantity/{quantity}")] 
+        [HttpPost("{basketID}/RemoveProduct/{productID}/Quantity/{quantity}")] 
         public ActionResult<Basket> RemoveProductFromBasket(Basket basket, int basketID, int productID, int quantity)
         {
             //Will probabl need that when initalising a basket
