@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Commons.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,9 @@ namespace Backend.Mocks
 {
     public class NavUsersServiceMock : INavUsersService
     {
+        public User GetUser(string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -48,6 +48,16 @@ namespace Commons.Domain
             set { SetProperty(ref barcode, value); }
         }
 
+        public Product(int id, string name, string description, double price, int quantity, string barcode)
+        {
+            ID = id;
+            Name = name;
+            Description = description;
+            Price = price;
+            Quantity = quantity;
+            BarCode = barcode;
+        }
+
         /// <summary>
         /// Copy Constructor, creates deep copy.
         /// </summary>
