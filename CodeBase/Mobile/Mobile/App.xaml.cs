@@ -10,7 +10,10 @@ namespace Mobile
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            // When done with dev, place back to this mainPage
+            MainPage = new NavigationPage(new LoginView());
+
+            // MainPage = new View.WelcomeView();
         }
 
         protected override void OnStart()
