@@ -33,6 +33,14 @@ namespace Commons.Domain
             set { SetProperty(ref amount, value); }
         }
 
+        public Transaction(int id, DateTime timePaid, PaymentType paymentType, double amount)
+        {
+            ID = id;
+            TimePaid = timePaid;
+            PaymentType = paymentType;
+            Amount = amount;
+        }
+
         /// <summary>
         /// Creates a deep copy.
         /// </summary>

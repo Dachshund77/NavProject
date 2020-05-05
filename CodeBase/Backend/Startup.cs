@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Interfaces;
+using Backend.Mocks;
+using Backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,13 @@ namespace Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //Add MockedServiced if in Debug, real services if not
+#if DEBUG
+            AddMockedServices(services); //Do i need ref mb here?
+#else
+            AddRealServices(services);          
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +56,32 @@ namespace Backend
             {
                 endpoints.MapControllers();
             });
+        }
+
+        /// <summary>
+        /// Helper methods that registers services for productions.
+        /// </summary>
+        /// <param name="services"></param>
+        private void AddRealServices(IServiceCollection services)
+        {
+            services.AddTransient<INavAuthService, NavAuthService>();
+            services.AddTransient<INavBasketsService, NavBasketsService>();
+            services.AddTransient<INavProductsService, NavProductsService>();
+            services.AddTransient<INavTransactionsService, NavTransactionsService>();
+            services.AddTransient<INavUsersService, NavUsersService>();
+        }
+
+        /// <summary>
+        /// Helper methods that registers Mocked services for Debug
+        /// </summary>
+        /// <param name="services"></param>
+        private void AddMockedServices(IServiceCollection services)
+        {
+            services.AddTransient<INavAuthService, NavAuthServiceMock>();
+            services.AddTransient<INavBasketsService, NavBasketsServiceMock>();
+            services.AddTransient<INavProductsService, NavProductsServiceMock>();
+            services.AddTransient<INavTransactionsService, NavTransactionsServiceMock>();
+            services.AddTransient<INavUsersService, NavUsersServiceMock>();
         }
     }
 }
