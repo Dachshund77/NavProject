@@ -39,7 +39,7 @@ namespace Mobile.Services
 
             //Make call
             HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:44320/api/Products/Baskets" + basketID);
+            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:44320/api/Products/Baskets/" + basketID);
 
             //Process response code
             switch (response.StatusCode)
