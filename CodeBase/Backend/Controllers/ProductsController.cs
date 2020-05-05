@@ -47,18 +47,18 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{productID}")]
-        public ActionResult<Product> GetProduct(int productID)
+        public ActionResult<Product> GetProduct(string barcode)
         {
             try
             {
                 //Test for null
-                if (productID == 0) //Ints default to 0 if not set 
+                if (barcode == null)
                 {
                     return BadRequest("JSON Body was Empty!");
                 }
 
                 //Retrieve values from Servie
-                Product returnProduct = navProductsService.GetProduct(productID);
+                Product returnProduct = navProductsService.GetProduct(barcode);
 
                 //Return requested ressources
                 return Ok(returnProduct);
