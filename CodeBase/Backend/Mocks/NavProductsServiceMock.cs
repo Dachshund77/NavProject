@@ -19,16 +19,14 @@ namespace Backend.Mocks
             throw new NotImplementedException();
         }
 
-        public static Product GetMockProduct(int productID)
+        public static List<Product> GetMockProduct()
         {
-            Product[] products =
-                {
-                 new Product(1,"Apple","Green Apple",5.99,3,"fasdfsadfasf"),
-                 new Product(2,"Bannana","Blue Bananan",8.99,5,"fasdfgsdnhrasfassadfasf"),
-                 new Product(3,"Cat","Red Care",566.99,3,"afafukghkgsfa")
-            };
+            List<Product> products = new List<Product>();
+            products.Add(new Product(1, "Apple", "Green Apple", 5.99, "fasdfsadfasf"));
+            products.Add(new Product(2, "Bannana", "Blue Bananan", 8.99, "fasdfgsdnhrasfassadfasf"));
+            products.Add(new Product(3, "Cat", "Red Care", 566.99, "afafukghkgsfa"));
 
-            return products[productID + 1]; //First id is 1
+            return products;
         }
     }
 }
