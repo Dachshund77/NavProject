@@ -14,7 +14,6 @@ namespace Commons.Domain
         private string name;
         private string description;
         private double price;
-        private int quantity;
         private string barcode;
 
         public int ID
@@ -36,25 +35,19 @@ namespace Commons.Domain
         {
             get { return price; }
             set { SetProperty(ref price, value); }
-        }
-        public int Quantity
-        {
-            get { return quantity; }
-            set { SetProperty(ref quantity, value); }
-        }
+        }      
         public string BarCode  //TODO: Barcode implementation might change
         {
             get { return barcode; }
             set { SetProperty(ref barcode, value); }
         }
 
-        public Product(int id, string name, string description, double price, int quantity, string barcode)
+        public Product(int id, string name, string description, double price, string barcode)
         {
             ID = id;
             Name = name;
             Description = description;
             Price = price;
-            Quantity = quantity;
             BarCode = barcode;
         }
 
@@ -68,7 +61,6 @@ namespace Commons.Domain
             this.Name = other.Name;
             this.Description = other.Description;
             this.Price = other.Price;
-            this.Quantity = other.Quantity;
             this.BarCode = other.BarCode;
         }
 
@@ -95,7 +87,6 @@ namespace Commons.Domain
             returnList.AddRange(InvalidNameReasons());
             returnList.AddRange(InvalidDescriptionReasons());
             returnList.AddRange(InvalidPriceReasons());
-            returnList.AddRange(InvalidQuantityReasons());
             returnList.AddRange(InvalidBarcodeReasons());
 
             //Return
@@ -211,35 +202,6 @@ namespace Commons.Domain
             if (Price < 0)
             {
                 returnList.Add("Price may not be negative.");
-                return returnList;
-            }
-
-            //Return
-            return returnList;
-        }
-
-        public bool HasValidQuantity(out List<string> invalidReasons)
-        {
-            invalidReasons = InvalidQuantityReasons();
-            if (invalidReasons.Count == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private List<string> InvalidQuantityReasons()
-        {
-            //Init values
-            List<string> returnList = new List<string>();
-
-            //Test
-            if (Quantity < 0 )
-            {
-                returnList.Add("Quantity may not be negative.");
                 return returnList;
             }
 
