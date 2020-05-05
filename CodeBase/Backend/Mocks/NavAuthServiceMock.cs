@@ -1,9 +1,6 @@
 ﻿using Backend.Interfaces;
 using Commons.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Backend.Mocks
 {
@@ -12,7 +9,7 @@ namespace Backend.Mocks
         public string LogIn(User user)
         {
             List<Transaction> returnList = new List<Transaction>();
-            User mockUser = NavUsersServiceMock.GetMockUser(user.UserName);
+            User mockUser = User.GetMockUser(user.UserName);
 
             if(mockUser != null && user.PlainPassword == mockUser.PlainPassword)
             {

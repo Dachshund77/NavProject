@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+
 
 namespace Commons.Domain
 {
@@ -299,6 +298,64 @@ namespace Commons.Domain
             int hash = 13;
             hash = (hash * 9) + ID.GetHashCode();
             return hash;
+        }
+
+        public static Basket GetMockBasket(int basketID)
+        {
+            List<Basket> baskets = GetMockBaskets();
+            return baskets[basketID - 1];
+        }
+
+        public static List<Basket> GetMockBaskets()
+        {
+            //Get needed values
+            List<Product> mockProducts = Product.GetMockProducts();
+            List<Transaction> mockTransactions = Transaction.GetMockTransactions();
+
+            //Init
+            List<Basket> baskets = new List<Basket>();
+
+            baskets.Add(new Basket(
+                1,
+                false,
+                new ObservableCollection<Product>
+                {
+                     mockProducts[0],
+                     mockProducts[2]
+                },
+                new ObservableCollection<Transaction>
+                {
+                    mockTransactions[1]
+                },
+                300));
+
+            baskets.Add(new Basket(
+                2,
+                true,
+                new ObservableCollection<Product>
+                {
+                     mockProducts[1] ,
+                     mockProducts[2]
+                },
+                new ObservableCollection<Transaction>
+                {
+                    mockTransactions[2]
+                },
+                300));
+
+            baskets.Add(new Basket(
+                3,
+                false,
+                new ObservableCollection<Product>
+                {
+                     mockProducts[0]
+                },
+                new ObservableCollection<Transaction>
+                {
+                },
+                400));
+
+            return baskets;
         }
     }
 }
