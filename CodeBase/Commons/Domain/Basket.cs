@@ -57,7 +57,8 @@ namespace Commons.Domain
             }
         }
 
-        public Basket(int id, bool isPaid, Dictionary<Product,int> products, ObservableCollection<Transaction> transactions, double amount)
+        public Basket(int id, bool isPaid, Dictionary<Product, int> products, ObservableCollection<Transaction> transactions, double amount)
+            : this()
         {
             ID = id;
             IsPaid = isPaid;
