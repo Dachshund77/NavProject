@@ -11,7 +11,7 @@ namespace Commons.Domain
     {
         private int id;
         private bool isPaid;
-        private ObservableCollection<Product> products;
+        private Dictionary<Product, int> products; //Freaking c# Does not have an observableDictornary. If needed write own or find 3rd party online.
         private ObservableCollection<Transaction> transactions;
         private double amount;
 
@@ -25,7 +25,7 @@ namespace Commons.Domain
             get { return isPaid; }
             set { SetProperty(ref isPaid, value); }
         }
-        public ObservableCollection<Product> Products
+        public Dictionary<Product, int> Products
         {
             get { return products; }
             set { SetProperty(ref products, value); }
@@ -43,7 +43,7 @@ namespace Commons.Domain
 
         public Basket()
         {
-            Products = new ObservableCollection<Product>();
+            Products = new Dictionary<Product, int>();
             Transactions = new ObservableCollection<Transaction>();
         }
 
@@ -57,9 +57,9 @@ namespace Commons.Domain
             this.ID = other.ID;
             this.IsPaid = other.IsPaid;
             //Clone Products
-            foreach (Product p in other.Products)
+            foreach (KeyValuePair<Product,int> entry in other.Products)
             {
-                this.Products.Add(new Product(p));
+                this.Products.Add(entry.Key, entry.Value);
             }
             //Clone Transactions
             foreach (Transaction t in other.Transactions)
@@ -170,12 +170,17 @@ namespace Commons.Domain
             List<string> returnList = new List<string>();
 
             //Test           
-            foreach (Product p in Products)
+            foreach (KeyValuePair<Product, int> entry in Products) //Test if nested products are valid
             {
-                if (p.IsValid(out List<string> invalidReasons))
+                if (entry.Key.IsValid(out List<string> invalidReasons))
                 {
                     returnList.AddRange(invalidReasons);
                     break;
+                }
+                //Product may not be empty
+                if(entry.Value <= 0)
+                {
+                    returnList.Add(entry.Key+": may not have value of 0.");
                 }
             }
 
