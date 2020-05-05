@@ -41,10 +41,29 @@ namespace Commons.Domain
             set { SetProperty(ref amount, value); }
         }
 
+
+
         public Basket()
         {
-            Products = new Dictionary<Product, int>();
-            Transactions = new ObservableCollection<Transaction>();
+            //Basically just makes sure that the lists are initalised
+            if(Products == null)
+            {
+                
+                Products = new Dictionary<Product, int>();
+            }
+            if (Transactions == null)
+            {
+                Transactions = new ObservableCollection<Transaction>();
+            }
+        }
+
+        public Basket(int id, bool isPaid, Dictionary<Product,int> products, ObservableCollection<Transaction> transactions, double amount)
+        {
+            ID = id;
+            IsPaid = isPaid;
+            Products = products;
+            Transactions = transactions;
+            Amount = amount;
         }
 
         /// <summary>
