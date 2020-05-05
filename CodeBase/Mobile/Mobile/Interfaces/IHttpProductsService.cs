@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Mobile.Services
 {
     public interface IHttpProductsService
     {
-        Product GetProduct(int productID);
-        List<Product> GetProductsOfBasket(int basketID);
+        Task<Product> GetProduct(int productID);
+        Task<List<Product>> GetProductsOfBasket(int basketID);
     }
 }
