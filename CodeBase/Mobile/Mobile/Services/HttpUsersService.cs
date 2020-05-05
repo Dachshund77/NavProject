@@ -13,7 +13,7 @@ namespace Mobile.Services
         public async Task<User> GetUser(string userName)
         {
             //Init values
-            User returnValue = new List<Product>();
+            User returnValue = null;
 
             //Make call
             HttpClient httpClient = new HttpClient();
