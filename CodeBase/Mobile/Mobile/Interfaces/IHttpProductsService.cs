@@ -8,7 +8,7 @@ namespace Mobile.Services
 {
     public interface IHttpProductsService
     {
-        Task<Product> GetProduct(int productID);
+        Task<Product> GetProduct(string barcode);
         Task<List<Product>> GetProductsOfBasket(int basketID);
     }
 }

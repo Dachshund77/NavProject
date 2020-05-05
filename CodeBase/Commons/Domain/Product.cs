@@ -16,7 +16,7 @@ namespace Commons.Domain
         private double price;
         private int amount;
 
-        public string BarCode
+        public string Barcode
         {
             get { return barcode; }
             set { SetProperty(ref barcode, value); }
@@ -44,7 +44,7 @@ namespace Commons.Domain
 
         public Product(string barcode, string name, string description, double price, int amount)          
         {
-            BarCode = barcode;
+            Barcode = barcode;
             Name = name;
             Description = description;
             Price = price;
@@ -57,7 +57,7 @@ namespace Commons.Domain
         /// <param name="other"></param>
         public Product(Product other)
         {
-            this.BarCode = other.BarCode;
+            this.Barcode = other.Barcode;
             this.Name = other.Name;
             this.Description = other.Description;
             this.Price = other.Price;
@@ -111,7 +111,7 @@ namespace Commons.Domain
             List<string> returnList = new List<string>();
 
             //Test           
-            if (BarCode == null)
+            if (Barcode == null)
             {
                 returnList.Add("Barcode may not be null.");
                 return returnList;
@@ -257,7 +257,7 @@ namespace Commons.Domain
                 return true;
             }
 
-            if (!this.BarCode.Equals(other.BarCode))
+            if (!this.Barcode.Equals(other.Barcode))
             {
                 return false;
             }
@@ -270,7 +270,7 @@ namespace Commons.Domain
         public override int GetHashCode()
         {
             int hash = 17;
-            hash = (hash * 7) + BarCode.GetHashCode();
+            hash = (hash * 7) + Barcode.GetHashCode();
             return hash;
         }
 

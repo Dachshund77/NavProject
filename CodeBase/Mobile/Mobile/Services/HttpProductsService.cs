@@ -10,14 +10,14 @@ namespace Mobile.Services
 {
     public class HttpProductsService : IHttpProductsService
     {
-        public async Task<Product> GetProduct(int productID)
+        public async Task<Product> GetProduct(string barcode)
         {
             //Init values
             Product returnValue = null;
 
             //Make call
             HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:44320/api/Products/" + productID);
+            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:44320/api/Products/" + barcode);
            
             //Process response code
             switch (response.StatusCode)
