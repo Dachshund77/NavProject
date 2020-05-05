@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers
 {
     [ApiController]
+    [Route("api/[Controller]")]
     public class ProductsController : Controller
     {
         private readonly INavProductsService navProductsService;
@@ -71,7 +72,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("Baskets/{basketID}")]
-        public ActionResult<List<Product>> GetProductsOfBasket(int basketID)
+        public ActionResult<Dictionary<Product, int>> GetProductsOfBasket(int basketID)
         {
             try
             {

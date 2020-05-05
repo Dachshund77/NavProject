@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers
 {
     [ApiController]
+    [Route("api/[Controller]")]
     public class AuthController : Controller
     {
         private readonly INavAuthService navAuthService;

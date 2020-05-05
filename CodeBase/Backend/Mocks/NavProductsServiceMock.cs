@@ -11,20 +11,29 @@ namespace Backend.Mocks
     {
         public Product GetProduct(int productID)
         {
-            throw new NotImplementedException();
+            return GetMockProduct(productID);
         }
 
         public List<Product> GetProductsOfBasket(int basketID)
         {
-            throw new NotImplementedException();
+            List<Basket> baskets = NavBasketsServiceMock.GetMockBaskets();
+            Basket selectedBasket = baskets.Where(x => x.ID == basketID).FirstOrDefault();
+            return selectedBasket.Products.ToList();
+            
         }
 
-        public static List<Product> GetMockProduct()
+        public static Product GetMockProduct(int productID)
+        {
+            List<Product> products = GetMockProducts();
+            return products[productID-1];
+        }
+
+        public static List<Product> GetMockProducts()
         {
             List<Product> products = new List<Product>();
-            products.Add(new Product(1, "Apple", "Green Apple", 5.99, "fasdfsadfasf"));
-            products.Add(new Product(2, "Bannana", "Blue Bananan", 8.99, "fasdfgsdnhrasfassadfasf"));
-            products.Add(new Product(3, "Cat", "Red Care", 566.99, "afafukghkgsfa"));
+            products.Add(new Product(1, "Apple", "Green Apple", 5.99, 4,"fasdfsadfasf"));
+            products.Add(new Product(2, "Bannana", "Blue Bananan", 8.99,5, "fasdfgsdnhrasfassadfasf"));
+            products.Add(new Product(3, "Cat", "Red Care", 566.99,2, "afafukghkgsfa"));
 
             return products;
         }

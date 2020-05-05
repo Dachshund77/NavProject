@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Interfaces;
+using Backend.Mocks;
 using Commons.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ namespace Backend.Controllers
 {
     //[Authorize]
     [ApiController]
+    [Route("api/[Controller]")]
     public class UsersController : Controller
     {
         private readonly INavUsersService navUsersService;
@@ -24,14 +26,14 @@ namespace Backend.Controllers
         [HttpPost]
         public ActionResult<User> PostUser(User user)
         {
-            /*
+                /*
              * A user will register itself via the AuthController,
              * This is because there are certain formalities that need to be fulfilled
              * This endpoint would be an admin way to cirumvent this
              * But our admins will likely use navision directly
              */
-            return StatusCode(501);
-        }
+                return StatusCode(501);
+            }
 
         [HttpPut("{userName}")]
         public ActionResult<User> PutUser(User user, string userName)
@@ -58,7 +60,7 @@ namespace Backend.Controllers
             try
             {
                 //Test for null
-                if(userName == null)
+                if (userName == null)
                 {
                     return BadRequest("JSON Body was Empty!");
                 }

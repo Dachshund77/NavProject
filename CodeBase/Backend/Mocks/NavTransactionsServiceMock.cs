@@ -4,6 +4,7 @@ using Commons.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Backend.Mocks
@@ -12,17 +13,32 @@ namespace Backend.Mocks
     {
         public Transaction GetTransaction(int transactionID)
         {
-            throw new NotImplementedException();
+            return GetMockTransaction(transactionID);
         }
 
         public List<Transaction> GetTransactionsOfBasket(int basketID)
         {
-            throw new NotImplementedException();
+            List<Basket> baskets = NavBasketsServiceMock.GetMockBaskets();
+            Basket selectedBasket = baskets.Where(x => x.ID == basketID).FirstOrDefault();
+            return selectedBasket.Transactions.ToList();
         }
 
         public List<Transaction> GetTransactionsOfUser(string userName)
         {
-            throw new NotImplementedException();
+            List<Transaction> returnList = new List<Transaction>();
+
+            User user = NavUsersServiceMock.GetMockUser(userName);
+            foreach (Basket b in user.Baskets) //Can i write this as LINQ query?
+            {
+                returnList.AddRange(b.Transactions);              
+            }
+            return returnList;
+        }
+
+        public static Transaction GetMockTransaction(int tranactionID)
+        {
+            List<Transaction> transactions = GetMockTransactions();
+            return transactions[tranactionID - 1];
         }
 
         public static List<Transaction> GetMockTransactions()

@@ -14,6 +14,7 @@ namespace Commons.Domain
         private string name;
         private string description;
         private double price;
+        private int amount;
         private string barcode;
 
         public int ID
@@ -35,19 +36,25 @@ namespace Commons.Domain
         {
             get { return price; }
             set { SetProperty(ref price, value); }
-        }      
+        }
+        public int Amount
+        {
+            get { return amount; }
+            set { SetProperty(ref amount, value); }
+        }
         public string BarCode  //TODO: Barcode implementation might change
         {
             get { return barcode; }
             set { SetProperty(ref barcode, value); }
         }
 
-        public Product(int id, string name, string description, double price, string barcode)
+        public Product(int id, string name, string description, double price, int amount,string barcode)
         {
             ID = id;
             Name = name;
             Description = description;
             Price = price;
+            Amount = amount;
             BarCode = barcode;
         }
 
@@ -202,6 +209,35 @@ namespace Commons.Domain
             if (Price < 0)
             {
                 returnList.Add("Price may not be negative.");
+                return returnList;
+            }
+
+            //Return
+            return returnList;
+        }
+
+        public bool HasValidAmount(out List<string> invalidReasons)
+        {
+            invalidReasons = InvalidAmountReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private List<string> InvalidAmountReasons()
+        {
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test
+            if (Amount < 0)
+            {
+                returnList.Add("Amount may not be negative.");
                 return returnList;
             }
 

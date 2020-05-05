@@ -11,6 +11,7 @@ namespace Backend.Controllers
 {
     //[Authorize]
     [ApiController]
+    [Route("api/[Controller]")]
     public class BasketsController : Controller
     {
         private readonly INavBasketsService navBasketsService;
@@ -142,7 +143,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("{basketID}/RemoveProduct/{productID}}")]
+        [HttpPost("{basketID}/RemoveProduct/{productID}")]
         public ActionResult<Basket> RemoveProductFromBasket(Basket basket, int basketID, int productID)
         {
             try

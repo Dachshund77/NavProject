@@ -11,17 +11,27 @@ namespace Backend.Mocks
     {
         public string LogIn(User user)
         {
-            throw new NotImplementedException();
+            List<Transaction> returnList = new List<Transaction>();
+            User mockUser = NavUsersServiceMock.GetMockUser(user.UserName);
+
+            if(mockUser != null && user.PlainPassword == mockUser.PlainPassword)
+            {
+                return "someKindOfJWTORSecurityToken";
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void LogOut(User user)
         {
-            throw new NotImplementedException();
+            //Should probably return some kind of signature... ohhh well
         }
 
         public void Register(User user)
         {
-            throw new NotImplementedException();
+            //Void is bad m'kay :D
         }
     }
 }
