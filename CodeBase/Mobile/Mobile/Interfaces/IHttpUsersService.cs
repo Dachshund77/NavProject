@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Mobile.Services
 {
     public interface IHttpUsersService
     {
-        User GetUser(string userName);
+        Task<User> GetUser(string userName);
     }
 }
