@@ -31,7 +31,19 @@ namespace Commons.Domain
 
         public User()
         {
-            Baskets = new ObservableCollection<Basket>();
+            if(Baskets == null) //Makes sure list is initalised
+            {
+                Baskets = new ObservableCollection<Basket>();
+            }
+        }
+
+        public User(string userName, string plainPassword ,string email, ObservableCollection<Basket> baskets)
+            :this()
+        {
+            UserName = userName;
+            PlainPassword = plainPassword;
+            Email = email;
+            Baskets = baskets;
         }
 
         /// <summary>

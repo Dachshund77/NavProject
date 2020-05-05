@@ -11,7 +11,7 @@ namespace Commons.Domain
     {
         private int id;
         private bool isPaid;
-        private ObservableCollection<Product> products;
+        private ObservableCollection<Product> products; 
         private ObservableCollection<Transaction> transactions;
         private double amount;
 
@@ -41,10 +41,30 @@ namespace Commons.Domain
             set { SetProperty(ref amount, value); }
         }
 
+
+
         public Basket()
         {
-            Products = new ObservableCollection<Product>();
-            Transactions = new ObservableCollection<Transaction>();
+            //Basically just makes sure that the lists are initalised
+            if(Products == null)
+            {
+                
+                Products = new ObservableCollection<Product>();
+            }
+            if (Transactions == null)
+            {
+                Transactions = new ObservableCollection<Transaction>();
+            }
+        }
+
+        public Basket(int id, bool isPaid, ObservableCollection<Product> products, ObservableCollection<Transaction> transactions, double amount)
+            : this()
+        {
+            ID = id;
+            IsPaid = isPaid;
+            Products = products;
+            Transactions = transactions;
+            Amount = amount;
         }
 
         /// <summary>
@@ -59,7 +79,7 @@ namespace Commons.Domain
             //Clone Products
             foreach (Product p in other.Products)
             {
-                this.Products.Add(new Product(p));
+                this.Products.Add(p);
             }
             //Clone Transactions
             foreach (Transaction t in other.Transactions)
@@ -170,13 +190,14 @@ namespace Commons.Domain
             List<string> returnList = new List<string>();
 
             //Test           
-            foreach (Product p in Products)
+            foreach (Product p in Products) //Test if nested products are valid
             {
                 if (p.IsValid(out List<string> invalidReasons))
                 {
                     returnList.AddRange(invalidReasons);
                     break;
                 }
+                
             }
 
             //Return
