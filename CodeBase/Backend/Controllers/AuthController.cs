@@ -19,7 +19,7 @@ namespace Backend.Controllers
             this.navAuthService = navAuthService;
         }
 
-        [HttpPost("/Login")]
+        [HttpPost("Login")]
         public ActionResult<string> LogIn(User user) //Return a token 
         {
             try
@@ -57,7 +57,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("/Logout")] //Need to be authorized i thinkh
+        [HttpPost("Logout")] //Need to be authorized i thinkh
         public ActionResult LogOut(User user) //idk 
         {
             try
@@ -89,7 +89,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("/Register")] //Need to be authorized i thinkh
+        [HttpPost("Register")] //Need to be authorized i thinkh
         public ActionResult Register(User user) //Should maybe immidieatly return a token, idk about email verification though 
         {
             try

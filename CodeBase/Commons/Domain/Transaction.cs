@@ -32,6 +32,8 @@ namespace Commons.Domain
             set { SetProperty(ref amount, value); }
         }
 
+        public Transaction() { }
+
         public Transaction(int id, DateTime timePaid, PaymentType paymentType, double amount)
         {
             ID = id;

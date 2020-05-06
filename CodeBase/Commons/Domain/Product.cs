@@ -40,6 +40,8 @@ namespace Commons.Domain
             set { SetProperty(ref amount, value); }
         }      
 
+        public Product() { }
+
         public Product(string barcode, string name, string description, double price, int amount)          
         {
             Barcode = barcode;

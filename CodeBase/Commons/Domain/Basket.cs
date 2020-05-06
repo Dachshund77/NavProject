@@ -47,7 +47,6 @@ namespace Commons.Domain
             //Basically just makes sure that the lists are initalised
             if (Products == null)
             {
-
                 Products = new ObservableCollection<Product>();
             }
             if (Transactions == null)
