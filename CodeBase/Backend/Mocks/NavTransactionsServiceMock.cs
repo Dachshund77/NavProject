@@ -25,8 +25,7 @@ namespace Backend.Mocks
         {
             List<Transaction> returnList = new List<Transaction>();
 
-            //User user = NavUsersServiceMock.GetMockUser(userName);
-            User user = null;
+            User user = User.GetMockUser(userName);
             foreach (Basket b in user.Baskets) //Can i write this as LINQ query?
             {
                 returnList.AddRange(b.Transactions);              
