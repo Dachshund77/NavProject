@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
+using System.Linq;
 
 namespace Commons.Domain
 {
@@ -31,14 +31,14 @@ namespace Commons.Domain
 
         public User()
         {
-            if(Baskets == null) //Makes sure list is initalised
+            if (Baskets == null) //Makes sure list is initalised
             {
                 Baskets = new ObservableCollection<Basket>();
             }
         }
 
-        public User(string userName, string plainPassword ,string email, ObservableCollection<Basket> baskets)
-            :this()
+        public User(string userName, string plainPassword, string email, ObservableCollection<Basket> baskets)
+            : this()
         {
             UserName = userName;
             PlainPassword = plainPassword;
@@ -264,6 +264,68 @@ namespace Commons.Domain
             int hash = 23;
             hash = (hash * 199) + UserName.GetHashCode();
             return hash;
+        }
+
+        public static User GetMockUser(string userName)
+        {
+            try
+            {
+                List<User> users = GetMockUsers();
+                return users.Where(x => x.UserName == userName).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }
+        }
+
+        public static List<User> GetMockUsers()
+        {
+            try
+            {
+                //init              
+                List<User> mockUser = new List<User>();
+
+                //Build
+                mockUser.Add(new User(
+                    "Peter",
+                    "13sfsaf34",
+                    "xas@google.com",
+                    new ObservableCollection<Basket>
+                    {
+                    Basket.GetMockBasket(1),
+                   Basket.GetMockBasket(3)
+                    }));
+
+                mockUser.Add(new User(
+                    "Sven",
+                    "133224",
+                    "xasffas@google.com",
+                    new ObservableCollection<Basket>
+                    {
+                   Basket.GetMockBasket(2)
+                    }));
+
+                mockUser.Add(new User(
+                    "Franz",
+                    "2fxafxaf221",
+                    "Fraaaa@google.com",
+                    new ObservableCollection<Basket>
+                    {
+                    }));
+
+                //return
+                return mockUser;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }
+
         }
     }
 }

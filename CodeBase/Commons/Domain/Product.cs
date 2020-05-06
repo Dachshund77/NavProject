@@ -1,26 +1,23 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace Commons.Domain
 {
     public class Product : BaseDomain
     {
 
-        private int id;
+        private string barcode;
         private string name;
         private string description;
         private double price;
         private int amount;
-        private string barcode;
 
-        public int ID
+        public string Barcode
         {
-            get { return id; }
-            set { SetProperty(ref id, value); }
+            get { return barcode; }
+            set { SetProperty(ref barcode, value); }
         }
         public string Name
         {
@@ -41,21 +38,17 @@ namespace Commons.Domain
         {
             get { return amount; }
             set { SetProperty(ref amount, value); }
-        }
-        public string BarCode  //TODO: Barcode implementation might change
-        {
-            get { return barcode; }
-            set { SetProperty(ref barcode, value); }
-        }
+        }      
 
-        public Product(int id, string name, string description, double price, int amount,string barcode)
+        public Product() { }
+
+        public Product(string barcode, string name, string description, double price, int amount)          
         {
-            ID = id;
+            Barcode = barcode;
             Name = name;
             Description = description;
             Price = price;
-            Amount = amount;
-            BarCode = barcode;
+            Amount = amount;           
         }
 
         /// <summary>
@@ -64,11 +57,10 @@ namespace Commons.Domain
         /// <param name="other"></param>
         public Product(Product other)
         {
-            this.ID = other.ID;
+            this.Barcode = other.Barcode;
             this.Name = other.Name;
             this.Description = other.Description;
             this.Price = other.Price;
-            this.BarCode = other.BarCode;
         }
 
         public bool IsValid(out List<string> invalidReasons)
@@ -89,12 +81,41 @@ namespace Commons.Domain
             //Init values
             List<string> returnList = new List<string>();
 
-            //Test           
-            returnList.AddRange(InvalidIDReasons());
+            //Test    
+            returnList.AddRange(InvalidBarcodeReasons());
             returnList.AddRange(InvalidNameReasons());
             returnList.AddRange(InvalidDescriptionReasons());
             returnList.AddRange(InvalidPriceReasons());
-            returnList.AddRange(InvalidBarcodeReasons());
+           
+
+            //Return
+            return returnList;
+        }
+
+        public bool HasValidBarCode(out List<string> invalidReasons)
+        {
+            invalidReasons = InvalidBarcodeReasons();
+            if (invalidReasons.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private List<string> InvalidBarcodeReasons()
+        {
+            //Init values
+            List<string> returnList = new List<string>();
+
+            //Test           
+            if (Barcode == null)
+            {
+                returnList.Add("Barcode may not be null.");
+                return returnList;
+            }
 
             //Return
             return returnList;
@@ -124,35 +145,6 @@ namespace Commons.Domain
                 returnList.Add("Name may not be null.");
                 return returnList;
             }           
-
-            //Return
-            return returnList;
-        }
-
-        public bool HasValidID(out List<string> invalidReasons)
-        {
-            invalidReasons = InvalidIDReasons();
-            if (invalidReasons.Count == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private List<string> InvalidIDReasons()
-        {
-            //Init values
-            List<string> returnList = new List<string>();
-
-            //Test  
-            if (ID < 0)
-            {
-                returnList.Add("ID may not be negative.");
-                return returnList;
-            }
 
             //Return
             return returnList;
@@ -245,35 +237,6 @@ namespace Commons.Domain
             return returnList;
         }
 
-        public bool HasValidBarCode(out List<string> invalidReasons)
-        {
-            invalidReasons = InvalidBarcodeReasons();
-            if (invalidReasons.Count == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private List<string> InvalidBarcodeReasons()
-        {
-            //Init values
-            List<string> returnList = new List<string>();
-
-            //Test           
-            if (BarCode == null)
-            {
-                returnList.Add("Barcode may not be null.");
-                return returnList;
-            }
-
-            //Return
-            return returnList;
-        }
-
         /// <summary>
         /// Object of this kind is equal if id is the same.
         /// </summary>
@@ -294,7 +257,7 @@ namespace Commons.Domain
                 return true;
             }
 
-            if (this.ID != other.ID)
+            if (!this.Barcode.Equals(other.Barcode))
             {
                 return false;
             }
@@ -307,9 +270,42 @@ namespace Commons.Domain
         public override int GetHashCode()
         {
             int hash = 17;
-            hash = (hash * 7) + ID.GetHashCode();
+            hash = (hash * 7) + Barcode.GetHashCode();
             return hash;
         }
 
+        public static Product GetMockProduct(string barcode)
+        {
+            try
+            {
+                List<Product> products = GetMockProducts();
+                return products.Where(x => x.Barcode.Equals(barcode)).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }        
+        }
+
+        public static List<Product> GetMockProducts()
+        {
+            try
+            {
+                List<Product> products = new List<Product>();
+                products.Add(new Product("fasdfsadfasf", "Apple", "Green Apple", 5.99, 4));
+                products.Add(new Product("fasdfgsdnhrasfassadfasf", "Bannana", "Blue Bananan", 8.99, 5));
+                products.Add(new Product("afafukghkgsfa", "Cat", "Red Care", 566.99, 2));
+
+                return products;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }          
+        }
     }
 }

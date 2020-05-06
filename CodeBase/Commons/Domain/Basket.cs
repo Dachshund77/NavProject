@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+
 
 namespace Commons.Domain
 {
@@ -11,7 +10,7 @@ namespace Commons.Domain
     {
         private int id;
         private bool isPaid;
-        private ObservableCollection<Product> products; 
+        private ObservableCollection<Product> products;
         private ObservableCollection<Transaction> transactions;
         private double amount;
 
@@ -46,9 +45,8 @@ namespace Commons.Domain
         public Basket()
         {
             //Basically just makes sure that the lists are initalised
-            if(Products == null)
+            if (Products == null)
             {
-                
                 Products = new ObservableCollection<Product>();
             }
             if (Transactions == null)
@@ -139,7 +137,7 @@ namespace Commons.Domain
             //Test           
             if (ID < 0)
             {
-                returnList.Add("ID may not be null.");             
+                returnList.Add("ID may not be null.");
             }
 
             //Return
@@ -197,7 +195,7 @@ namespace Commons.Domain
                     returnList.AddRange(invalidReasons);
                     break;
                 }
-                
+
             }
 
             //Return
@@ -224,7 +222,7 @@ namespace Commons.Domain
 
             //Test           
             foreach (Transaction t in Transactions)
-            {        
+            {
                 if (t.IsValid(out List<string> invalidReasons))
                 {
                     returnList.AddRange(invalidReasons);
@@ -299,6 +297,79 @@ namespace Commons.Domain
             int hash = 13;
             hash = (hash * 9) + ID.GetHashCode();
             return hash;
+        }
+
+        public static Basket GetMockBasket(int basketID)
+        {
+            try
+            {
+                List<Basket> baskets = GetMockBaskets();
+                return baskets[basketID - 1];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }
+        }
+
+        public static List<Basket> GetMockBaskets()
+        {
+            try
+            {
+                //Init
+                List<Basket> baskets = new List<Basket>();
+
+                baskets.Add(new Basket(
+                    1,
+                    false,
+                    new ObservableCollection<Product>
+                    {
+                     Product.GetMockProduct("fasdfsadfasf"),
+                     Product.GetMockProduct("fasdfgsdnhrasfassadfasf")
+                    },
+                    new ObservableCollection<Transaction>
+                    {
+                    Transaction.GetMockTransaction(1)
+                    },
+                    300));
+
+                baskets.Add(new Basket(
+                    2,
+                    true,
+                    new ObservableCollection<Product>
+                    {
+                    Product.GetMockProduct("fasdfsadfasf"),
+                    Product.GetMockProduct("fasdfgsdnhrasfassadfasf")
+                    },
+                    new ObservableCollection<Transaction>
+                    {
+                    Transaction.GetMockTransaction(3)
+                    },
+                    300));
+
+                baskets.Add(new Basket(
+                    3,
+                    false,
+                    new ObservableCollection<Product>
+                    {
+                    Product.GetMockProduct("afafukghkgsfa")
+                    },
+                    new ObservableCollection<Transaction>
+                    {
+                    },
+                    400));
+
+                return baskets;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }
+
         }
     }
 }

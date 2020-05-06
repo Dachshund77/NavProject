@@ -20,7 +20,16 @@ namespace Backend
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            try
+            {
+                Configuration = configuration;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+          
         }
 
         public IConfiguration Configuration { get; }
@@ -28,60 +37,96 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            try
+            {
+                services.AddControllers();
 
-            //Add MockedServiced if in Debug, real services if not
+                //Add MockedServiced if in Debug, real services if not
 #if DEBUG
-            AddMockedServices(services); //Do i need ref mb here?
+                AddMockedServices(ref services); //Do i need ref mb here?
 #else
-            AddRealServices(services);          
+            AddRealServices(ref services);          
 #endif
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            try
             {
-                app.UseDeveloperExceptionPage();
+                if (env.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+
+                app.UseHttpsRedirection();
+
+                app.UseRouting();
+
+                //app.UseAuthorization();
+
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            catch (Exception e)
             {
-                endpoints.MapControllers();
-            });
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+         
         }
 
         /// <summary>
         /// Helper methods that registers services for productions.
         /// </summary>
         /// <param name="services"></param>
-        private void AddRealServices(IServiceCollection services)
+        private void AddRealServices(ref IServiceCollection services)
         {
-            services.AddTransient<INavAuthService, NavAuthService>();
-            services.AddTransient<INavBasketsService, NavBasketsService>();
-            services.AddTransient<INavProductsService, NavProductsService>();
-            services.AddTransient<INavTransactionsService, NavTransactionsService>();
-            services.AddTransient<INavUsersService, NavUsersService>();
+            try
+            {
+                services.AddTransient<INavProductsService, NavProductsService>();
+                services.AddTransient<INavTransactionsService, NavTransactionsService>();
+                services.AddTransient<INavBasketsService, NavBasketsService>();
+                services.AddTransient<INavUsersService, NavUsersService>();
+                services.AddTransient<INavAuthService, NavAuthService>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }        
         }
 
         /// <summary>
         /// Helper methods that registers Mocked services for Debug
         /// </summary>
         /// <param name="services"></param>
-        private void AddMockedServices(IServiceCollection services)
+        private void AddMockedServices(ref IServiceCollection services)
         {
-            services.AddTransient<INavAuthService, NavAuthServiceMock>();
-            services.AddTransient<INavBasketsService, NavBasketsServiceMock>();
-            services.AddTransient<INavProductsService, NavProductsServiceMock>();
-            services.AddTransient<INavTransactionsService, NavTransactionsServiceMock>();
-            services.AddTransient<INavUsersService, NavUsersServiceMock>();
+            try
+            {
+                services.AddTransient<INavAuthService, NavAuthServiceMock>();
+                services.AddTransient<INavBasketsService, NavBasketsServiceMock>();
+                services.AddTransient<INavProductsService, NavProductsServiceMock>();
+                services.AddTransient<INavTransactionsService, NavTransactionsServiceMock>();
+                services.AddTransient<INavUsersService, NavUsersServiceMock>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }        
         }
     }
 }

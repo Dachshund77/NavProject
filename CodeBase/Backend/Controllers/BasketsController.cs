@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +20,7 @@ namespace Backend.Controllers
             this.navBasketsService = navBasketsService;
         }
 
-        [HttpPost("/Users/{userName}")] //Needs reference to the realted user
+        [HttpPost("Users/{userName}")] //Needs reference to the realted user
         public ActionResult<Basket> PostBasket(Basket basket, string userName)
         {
             try
@@ -143,8 +142,8 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("{basketID}/RemoveProduct/{productID}")]
-        public ActionResult<Basket> RemoveProductFromBasket(Basket basket, int basketID, int productID)
+        [HttpPut("{basketID}/RemoveProduct/{barcode}")]
+        public ActionResult<Basket> RemoveProductFromBasket(Basket basket, int basketID, string barcode)
         {
             try
             {
@@ -153,7 +152,7 @@ namespace Backend.Controllers
                 {
                     return BadRequest("BasketID was Empty!");
                 }
-                if (productID == 0)
+                if (barcode.Equals(null))
                 {
                     return BadRequest("ProductID was Empty!");
                 }               
@@ -166,7 +165,7 @@ namespace Backend.Controllers
                 }
 
                 //Retrieve values from Servie
-                Basket returnBasket = navBasketsService.RemoveProductFromBasket(basket, basketID, productID);
+                Basket returnBasket = navBasketsService.RemoveProductFromBasket(basket, basketID, barcode);
 
                 //Test if value was found
                 if (returnBasket == null)
@@ -235,7 +234,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("/Users/{userName}")]
+        [HttpGet("Users/{userName}")]
         public ActionResult<List<Basket>> GetBasketsOfUser(string userName)
         {
             try

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +19,7 @@ namespace Backend.Controllers
             this.navTransactionsService = navTransactionsService;
         }
 
-        [HttpPost("/Baskets/{basketID}")]
+        [HttpPost("Baskets/{basketID}")]
         public ActionResult<Transaction> PostTransaction(Transaction transaction, int basketID)
         {
             /*
@@ -69,7 +67,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("/Baskets/{basketID}")]
+        [HttpGet("Baskets/{basketID}")]
         public ActionResult<List<Transaction>> GetTransactionsOfBasket(int basketID)
         {
             try
@@ -94,7 +92,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("/Users/{userName}")]
+        [HttpGet("Users/{userName}")]
         public ActionResult<List<Transaction>> GetTransactionsOfUser(string userName)
         {
             try

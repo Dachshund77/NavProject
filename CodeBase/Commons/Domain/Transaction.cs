@@ -1,7 +1,6 @@
 ﻿using Commons.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Commons.Domain
 {
@@ -19,7 +18,7 @@ namespace Commons.Domain
         }
         public DateTime TimePaid
         {
-            get { return TimePaid; }
+            get { return timePaid; }
             set { SetProperty(ref timePaid, value); }
         }
         public PaymentType PaymentType
@@ -32,6 +31,8 @@ namespace Commons.Domain
             get { return amount; }
             set { SetProperty(ref amount, value); }
         }
+
+        public Transaction() { }
 
         public Transaction(int id, DateTime timePaid, PaymentType paymentType, double amount)
         {
@@ -225,6 +226,42 @@ namespace Commons.Domain
             int hash = 179;
             hash = (hash * 19) + ID.GetHashCode();
             return hash;
+        }
+
+        public static Transaction GetMockTransaction(int transactionID)
+        {
+            try
+            {
+                List<Transaction> transactions = GetMockTransactions();
+                return transactions[transactionID - 1];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }           
+        }
+
+        public static List<Transaction> GetMockTransactions()
+        {
+            try
+            {
+                List<Transaction> transactions = new List<Transaction>();
+
+                transactions.Add(new Transaction(1, new DateTime(2020, 1, 15), PaymentType.Card, 700));
+                transactions.Add(new Transaction(2, new DateTime(2019, 4, 8), PaymentType.Check, 70));
+                transactions.Add(new Transaction(3, new DateTime(2020, 11, 4), PaymentType.Card, 7200));
+                transactions.Add(new Transaction(4, new DateTime(2028, 3, 7), PaymentType.Card, 800));
+
+                return transactions;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }      
         }
     }
 }

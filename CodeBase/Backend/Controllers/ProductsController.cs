@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Backend.Interfaces;
 using Commons.Domain;
 using Microsoft.AspNetCore.Http;
@@ -32,33 +30,33 @@ namespace Backend.Controllers
             return StatusCode(501);
         }
 
-        [HttpPut("{productID}")]
-        public ActionResult<Product> PutProduct(Product product, int productID)
+        [HttpPut("{barcode}")]
+        public ActionResult<Product> PutProduct(Product product, int barcode)
         {
             //Same as PostProduct
             return StatusCode(501);
         }
 
-        [HttpDelete("{productID}")]
-        public ActionResult DeleteProduct(int productID)
+        [HttpDelete("{barcode}")]
+        public ActionResult DeleteProduct(int barcode)
         {
             //Same as PostProduct
             return StatusCode(501);
         }
 
-        [HttpGet("{productID}")]
-        public ActionResult<Product> GetProduct(int productID)
+        [HttpGet("{barcode}")]
+        public ActionResult<Product> GetProduct(string barcode)
         {
             try
             {
                 //Test for null
-                if (productID == 0) //Ints default to 0 if not set 
+                if (barcode == null)
                 {
                     return BadRequest("JSON Body was Empty!");
                 }
 
                 //Retrieve values from Servie
-                Product returnProduct = navProductsService.GetProduct(productID);
+                Product returnProduct = navProductsService.GetProduct(barcode);
 
                 //Return requested ressources
                 return Ok(returnProduct);

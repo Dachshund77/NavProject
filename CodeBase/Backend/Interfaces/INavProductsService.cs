@@ -8,7 +8,7 @@ namespace Backend.Interfaces
 {
     public interface INavProductsService
     {
-        Product GetProduct(int productID);
+        Product GetProduct(string barcode);
 
         List<Product> GetProductsOfBasket(int basketID);
     }

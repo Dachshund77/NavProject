@@ -9,7 +9,7 @@ namespace Backend.Services
 {
     public class NavProductsService : INavProductsService
     {
-        public Product GetProduct(int productID)
+        public Product GetProduct(string barcode)
         {
             throw new NotImplementedException();
         }
