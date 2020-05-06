@@ -39,7 +39,7 @@ namespace Backend.Services
             throw new NotImplementedException();
         }
 
-        public Basket RemoveProductFromBasket(Basket basket, int basketID, int productID)
+        public Basket RemoveProductFromBasket(Basket basket, int basketID, string barcode)
         {
             throw new NotImplementedException();
         }

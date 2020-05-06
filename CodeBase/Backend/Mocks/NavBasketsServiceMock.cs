@@ -37,7 +37,7 @@ namespace Backend.Mocks
             return basket; //just echoing
         }
 
-        public Basket RemoveProductFromBasket(Basket basket, int basketID, int productID)
+        public Basket RemoveProductFromBasket(Basket basket, int basketID, string barcode)
         {
             return basket; //just echoing
         }

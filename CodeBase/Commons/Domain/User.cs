@@ -291,7 +291,7 @@ namespace Commons.Domain
                 //Build
                 mockUser.Add(new User(
                     "Peter",
-                    "1334",
+                    "13sfsaf34",
                     "xas@google.com",
                     new ObservableCollection<Basket>
                     {
@@ -310,7 +310,7 @@ namespace Commons.Domain
 
                 mockUser.Add(new User(
                     "Franz",
-                    "21",
+                    "2fxafxaf221",
                     "Fraaaa@google.com",
                     new ObservableCollection<Basket>
                     {

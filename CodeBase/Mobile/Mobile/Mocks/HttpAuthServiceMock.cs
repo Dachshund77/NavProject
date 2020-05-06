@@ -2,6 +2,7 @@
 using Mobile.Services;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace Mobile.Mocks
 {
     public class HttpAuthServiceMock : IHttpAuthService
     {
-        public async Task<string> LogIn(User user)
+        public async Task<string> LogIn(User user, HttpClient httpClient = null)
         {
             List<Transaction> returnList = new List<Transaction>();
             User mockUser =  User.GetMockUser(user.UserName);
@@ -24,12 +25,12 @@ namespace Mobile.Mocks
             }
         }
 
-        public async Task<bool> LogOut(User user)
+        public async Task<bool> LogOut(User user, HttpClient httpClient = null)
         {
             return true; //This would only work with some actualy authentication and shit
         }
 
-        public async Task<bool> Register(User user)
+        public async Task<bool> Register(User user, HttpClient httpClient = null)
         {
             return true; //Not really implemented in teh backend even... so idc
         }

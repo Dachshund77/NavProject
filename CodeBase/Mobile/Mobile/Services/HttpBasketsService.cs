@@ -10,14 +10,18 @@ namespace Mobile.Services
 {
     public class HttpBasketsService : IHttpBasketsService
     {
-        public async Task<Basket> ChangeProductCount(Basket basket, int basketID, int productID, int quantity)
+        public async Task<Basket> ChangeProductCount(Basket basket, int basketID, int productID, int quantity, HttpClient httpClient = null)
         {
             //Init values
             Basket returnValue = null;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.PutAsJsonAsync("https://localhost:44320/api/Baskets/" + basketID + "/ChangProductCount/" + productID + "/Quantity/" + quantity, basket);
+            string url = "https://localhost:44320/api/Baskets/" + basketID + "/ChangProductCount/" + productID + "/Quantity/" + quantity;
+            HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, basket);
 
             //Process response code
             switch (response.StatusCode)
@@ -26,19 +30,23 @@ namespace Mobile.Services
                     returnValue = await response.Content.ReadAsAsync<Basket>();
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception("Failed for: " + url);
             }
             return returnValue;
         }
 
-        public async Task<bool> DeleteBasket(int basketID)
+        public async Task<bool> DeleteBasket(int basketID, HttpClient httpClient = null)
         {
             //Init values
             bool returnValue = false;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.DeleteAsync("https://localhost:44320/api/Baskets/" + basketID);
+            string url = "https://localhost:44320/api/Baskets/" + basketID;
+            HttpResponseMessage response = await httpClient.DeleteAsync(url);
 
             //Process response code
             switch (response.StatusCode)
@@ -47,19 +55,23 @@ namespace Mobile.Services
                     returnValue = true;
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception("Failed for: " + url);
             }
             return returnValue;
         }
 
-        public async Task<Basket> GetBasket(int basketID)
+        public async Task<Basket> GetBasket(int basketID, HttpClient httpClient = null)
         {
             //Init values
             Basket returnValue = null;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:44320/api/Baskets/" + basketID);
+            string url = "https://localhost:44320/api/Baskets/" + basketID;
+            HttpResponseMessage response = await httpClient.GetAsync(url);
 
             //Process response code
             switch (response.StatusCode)
@@ -68,20 +80,24 @@ namespace Mobile.Services
                     returnValue = await response.Content.ReadAsAsync<Basket>();
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception("Failed for: " + url);
 
             }
             return returnValue;
         }
 
-        public async Task<List<Basket>> GetBasketsOfUser(string userName)
+        public async Task<List<Basket>> GetBasketsOfUser(string userName, HttpClient httpClient = null)
         {
             //Init values
             List<Basket> returnValue = new List<Basket>();
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:44320/api/Baskets/Users/" + userName);
+            string url = "https://localhost:44320/api/Baskets/Users/" + userName;
+            HttpResponseMessage response = await httpClient.GetAsync(url);
 
             //Process response code
             switch (response.StatusCode)
@@ -90,20 +106,50 @@ namespace Mobile.Services
                     returnValue = await response.Content.ReadAsAsync<List<Basket>>();
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception("Failed for: " + url);
 
             }
             return returnValue;
         }
 
-        public async Task<Basket> PostBasket(Basket basket, string userName)
+        public async Task<Basket> PostBasket(Basket basket, string userName, HttpClient httpClient = null)
         {
             //Init values
             Basket returnValue;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("https://localhost:44320/api/Baskets/Users/" + userName, basket);
+            string url = "https://localhost:44320/api/Baskets/Users/" + userName;
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, basket);
+
+            //Process response code
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.Created:
+                    returnValue = await response.Content.ReadAsAsync<Basket>();
+                    break;
+                default:
+                    throw new Exception("Failed for: " + url);
+
+            }
+            return returnValue;
+        }
+
+        public async Task<Basket> PutBasket(Basket basket, int basketID, HttpClient httpClient = null)
+        {
+            //Init values
+            Basket returnValue;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
+
+            //Make call
+            string url = "https://localhost:44320/api/Baskets/" + basketID;
+            HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, basket);
 
             //Process response code
             switch (response.StatusCode)
@@ -112,20 +158,23 @@ namespace Mobile.Services
                     returnValue = await response.Content.ReadAsAsync<Basket>();
                     break;
                 default:
-                    throw new Exception();
-
+                    throw new Exception("Failed for: " + url);
             }
             return returnValue;
         }
 
-        public async Task<Basket> PutBasket(Basket basket, int basketID)
+        public async Task<Basket> RemoveProductFromBasket(Basket basket, int basketID, string barcode, HttpClient httpClient = null)
         {
             //Init values
             Basket returnValue;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.PutAsJsonAsync("https://localhost:44320/api/Baskets/" + basketID, basket);
+            string url = "https://localhost:44320/api/Baskets/" + basketID + "/RemoveProduct/" + barcode;
+            HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, basket);
 
             //Process response code
             switch (response.StatusCode)
@@ -134,28 +183,7 @@ namespace Mobile.Services
                     returnValue = await response.Content.ReadAsAsync<Basket>();
                     break;
                 default:
-                    throw new Exception();
-            }
-            return returnValue;
-        }
-
-        public async Task<Basket> RemoveProductFromBasket(Basket basket, int basketID, int productID)
-        {
-            //Init values
-            Basket returnValue;
-
-            //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.PutAsJsonAsync("https://localhost:44320/api/Baskets/" + basketID + "/RemoveProduct/" + productID, basket);
-
-            //Process response code
-            switch (response.StatusCode)
-            {
-                case HttpStatusCode.OK:
-                    returnValue = await response.Content.ReadAsAsync<Basket>();
-                    break;
-                default:
-                    throw new Exception();
+                    throw new Exception("Failed for: " + url);
             }
             return returnValue;
         }

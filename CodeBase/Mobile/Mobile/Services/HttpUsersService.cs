@@ -10,14 +10,18 @@ namespace Mobile.Services
 {
     public class HttpUsersService : IHttpUsersService
     {
-        public async Task<User> GetUser(string userName)
+        public async Task<User> GetUser(string userName, HttpClient httpClient = null)
         {
             //Init values
             User returnValue = null;
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             //Make call
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:44320/api/Users/" + userName);
+            string url = "https://localhost:44320/api/Users/" + userName;
+            HttpResponseMessage response = await httpClient.GetAsync(url);
 
             //Process response code
             switch (response.StatusCode)
@@ -26,7 +30,7 @@ namespace Mobile.Services
                     returnValue = await response.Content.ReadAsAsync<User>();
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception("Failed for: " + url);
 
             }
             return returnValue;
