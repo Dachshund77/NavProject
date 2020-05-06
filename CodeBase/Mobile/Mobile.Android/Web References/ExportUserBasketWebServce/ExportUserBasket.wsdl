@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/ExportUserBasket" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportUserBasket" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/UserBasketXml" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/UserBasketXml" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="NavUserBasket">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" default="0" name="UserID" type="int" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="BasketID" type="int" />
+        </sequence>
+      </complexType>
+      <complexType name="NavUserBaskets" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="NavUserBasket" type="tns:NavUserBasket" />
+        </sequence>
+      </complexType>
+      <element name="NavUserBaskets" type="tns:NavUserBaskets" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportUserBasket" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="ExportUserBasket">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/UserBasketXml" minOccurs="1" maxOccurs="1" name="items" type="q1:NavUserBaskets" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExportUserBasket_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q2="urn:microsoft-dynamics-nav/xmlports/UserBasketXml" minOccurs="1" maxOccurs="1" name="items" type="q2:NavUserBaskets" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertUserBasket">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="userIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertUserBasket_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="userIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ExportUserBasket">
+    <part name="parameters" element="tns:ExportUserBasket" />
+  </message>
+  <message name="ExportUserBasket_Result">
+    <part name="parameters" element="tns:ExportUserBasket_Result" />
+  </message>
+  <message name="InsertUserBasket">
+    <part name="parameters" element="tns:InsertUserBasket" />
+  </message>
+  <message name="InsertUserBasket_Result">
+    <part name="parameters" element="tns:InsertUserBasket_Result" />
+  </message>
+  <portType name="ExportUserBasket_Port">
+    <operation name="ExportUserBasket">
+      <input name="ExportUserBasket" message="tns:ExportUserBasket" />
+      <output name="ExportUserBasket_Result" message="tns:ExportUserBasket_Result" />
+    </operation>
+    <operation name="InsertUserBasket">
+      <input name="InsertUserBasket" message="tns:InsertUserBasket" />
+      <output name="InsertUserBasket_Result" message="tns:InsertUserBasket_Result" />
+    </operation>
+  </portType>
+  <binding name="ExportUserBasket_Binding" type="tns:ExportUserBasket_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="ExportUserBasket">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportUserBasket:ExportUserBasket" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="ExportUserBasket">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="ExportUserBasket_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="InsertUserBasket">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportUserBasket:InsertUserBasket" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="InsertUserBasket">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="InsertUserBasket_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ExportUserBasket">
+    <port name="ExportUserBasket_Port" binding="tns:ExportUserBasket_Binding">
+      <address location="http://localhost:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/ExportUserBasket" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>

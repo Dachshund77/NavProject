@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/ExportProductBasket" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportProductBasket" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/ProductBasketXml" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/ProductBasketXml" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="NavProdcuctBasket">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" default="0" name="ProductID" type="int" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="BasketID" type="int" />
+        </sequence>
+      </complexType>
+      <complexType name="NavProductBaskets" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="NavProdcuctBasket" type="tns:NavProdcuctBasket" />
+        </sequence>
+      </complexType>
+      <element name="NavProductBaskets" type="tns:NavProductBaskets" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportProductBasket" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="ExportProductBasket">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/ProductBasketXml" minOccurs="1" maxOccurs="1" name="items" type="q1:NavProductBaskets" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExportProductBasket_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q2="urn:microsoft-dynamics-nav/xmlports/ProductBasketXml" minOccurs="1" maxOccurs="1" name="items" type="q2:NavProductBaskets" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertProductBasket">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="productIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="quantityParam" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertProductBasket_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="productIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="quantityParam" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="DeleteProductBasket">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="productIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="quantityParam" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="DeleteProductBasket_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="productIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="quantityParam" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ExportProductBasket">
+    <part name="parameters" element="tns:ExportProductBasket" />
+  </message>
+  <message name="ExportProductBasket_Result">
+    <part name="parameters" element="tns:ExportProductBasket_Result" />
+  </message>
+  <message name="InsertProductBasket">
+    <part name="parameters" element="tns:InsertProductBasket" />
+  </message>
+  <message name="InsertProductBasket_Result">
+    <part name="parameters" element="tns:InsertProductBasket_Result" />
+  </message>
+  <message name="DeleteProductBasket">
+    <part name="parameters" element="tns:DeleteProductBasket" />
+  </message>
+  <message name="DeleteProductBasket_Result">
+    <part name="parameters" element="tns:DeleteProductBasket_Result" />
+  </message>
+  <portType name="ExportProductBasket_Port">
+    <operation name="ExportProductBasket">
+      <input name="ExportProductBasket" message="tns:ExportProductBasket" />
+      <output name="ExportProductBasket_Result" message="tns:ExportProductBasket_Result" />
+    </operation>
+    <operation name="InsertProductBasket">
+      <input name="InsertProductBasket" message="tns:InsertProductBasket" />
+      <output name="InsertProductBasket_Result" message="tns:InsertProductBasket_Result" />
+    </operation>
+    <operation name="DeleteProductBasket">
+      <input name="DeleteProductBasket" message="tns:DeleteProductBasket" />
+      <output name="DeleteProductBasket_Result" message="tns:DeleteProductBasket_Result" />
+    </operation>
+  </portType>
+  <binding name="ExportProductBasket_Binding" type="tns:ExportProductBasket_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="ExportProductBasket">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportProductBasket:ExportProductBasket" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="ExportProductBasket">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="ExportProductBasket_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="InsertProductBasket">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportProductBasket:InsertProductBasket" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="InsertProductBasket">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="InsertProductBasket_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="DeleteProductBasket">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportProductBasket:DeleteProductBasket" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="DeleteProductBasket">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="DeleteProductBasket_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ExportProductBasket">
+    <port name="ExportProductBasket_Port" binding="tns:ExportProductBasket_Binding">
+      <address location="http://localhost:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/ExportProductBasket" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>

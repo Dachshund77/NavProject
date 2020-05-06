@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/ExportTransaction" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportTransaction" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/TransactionXml" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/TransactionXml" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="NavItem">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" default="0" name="ID" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="Time" type="string" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="Amount" type="int" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="BasketID" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="PaymentType" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="NavItems" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="NavItem" type="tns:NavItem" />
+        </sequence>
+      </complexType>
+      <element name="NavItems" type="tns:NavItems" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportTransaction" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="ExportTransactions">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/TransactionXml" minOccurs="1" maxOccurs="1" name="items" type="q1:NavItems" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExportTransactions_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="InsertTransaction">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="timeParam" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="amountParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="paymentTypeParam" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertTransaction_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="timeParam" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="amountParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="basketIDParam" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="paymentTypeParam" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ExportTransactions">
+    <part name="parameters" element="tns:ExportTransactions" />
+  </message>
+  <message name="ExportTransactions_Result">
+    <part name="parameters" element="tns:ExportTransactions_Result" />
+  </message>
+  <message name="InsertTransaction">
+    <part name="parameters" element="tns:InsertTransaction" />
+  </message>
+  <message name="InsertTransaction_Result">
+    <part name="parameters" element="tns:InsertTransaction_Result" />
+  </message>
+  <portType name="ExportTransaction_Port">
+    <operation name="ExportTransactions">
+      <input name="ExportTransactions" message="tns:ExportTransactions" />
+      <output name="ExportTransactions_Result" message="tns:ExportTransactions_Result" />
+    </operation>
+    <operation name="InsertTransaction">
+      <input name="InsertTransaction" message="tns:InsertTransaction" />
+      <output name="InsertTransaction_Result" message="tns:InsertTransaction_Result" />
+    </operation>
+  </portType>
+  <binding name="ExportTransaction_Binding" type="tns:ExportTransaction_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="ExportTransactions">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportTransaction:ExportTransactions" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="ExportTransactions">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="ExportTransactions_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="InsertTransaction">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportTransaction:InsertTransaction" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="InsertTransaction">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="InsertTransaction_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ExportTransaction">
+    <port name="ExportTransaction_Port" binding="tns:ExportTransaction_Binding">
+      <address location="http://localhost:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/ExportTransaction" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>

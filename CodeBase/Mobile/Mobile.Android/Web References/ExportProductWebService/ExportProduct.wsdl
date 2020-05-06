@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/ExportProduct" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportProduct" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/ProductXml" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/ProductXml" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="NavItem">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" default="0" name="ID" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="Name" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Description" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Price" type="string" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="Quantity" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="BarCode" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="NavProduct" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="NavItem" type="tns:NavItem" />
+        </sequence>
+      </complexType>
+      <element name="NavProduct" type="tns:NavProduct" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportProduct" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="ExportProduct">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/ProductXml" minOccurs="1" maxOccurs="1" name="products" type="q1:NavProduct" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExportProduct_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ExportProduct">
+    <part name="parameters" element="tns:ExportProduct" />
+  </message>
+  <message name="ExportProduct_Result">
+    <part name="parameters" element="tns:ExportProduct_Result" />
+  </message>
+  <portType name="ExportProduct_Port">
+    <operation name="ExportProduct">
+      <input name="ExportProduct" message="tns:ExportProduct" />
+      <output name="ExportProduct_Result" message="tns:ExportProduct_Result" />
+    </operation>
+  </portType>
+  <binding name="ExportProduct_Binding" type="tns:ExportProduct_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="ExportProduct">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportProduct:ExportProduct" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="ExportProduct">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="ExportProduct_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ExportProduct">
+    <port name="ExportProduct_Port" binding="tns:ExportProduct_Binding">
+      <address location="http://localhost:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/ExportProduct" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>

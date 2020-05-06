@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/ExportUsers" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportUsers" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/UserXml" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/UserXml" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="NavItem">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="No." type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Username" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Password" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Email" type="string" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="ID" type="int" />
+        </sequence>
+      </complexType>
+      <complexType name="NavUserTable" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="NavItem" type="tns:NavItem" />
+        </sequence>
+      </complexType>
+      <element name="NavUserTable" type="tns:NavUserTable" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/ExportUsers" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="ExportUser">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/UserXml" minOccurs="1" maxOccurs="1" name="items" type="q1:NavUserTable" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExportUser_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="InsertUser">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="name" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pass" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="mail" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertUser_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="name" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pass" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="mail" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="DeleteUser">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="mail" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="DeleteUser_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="mail" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="AuthenticateUser">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="userNameParam" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="passwordParam" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="AuthenticateUser_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ExportUser">
+    <part name="parameters" element="tns:ExportUser" />
+  </message>
+  <message name="ExportUser_Result">
+    <part name="parameters" element="tns:ExportUser_Result" />
+  </message>
+  <message name="InsertUser">
+    <part name="parameters" element="tns:InsertUser" />
+  </message>
+  <message name="InsertUser_Result">
+    <part name="parameters" element="tns:InsertUser_Result" />
+  </message>
+  <message name="DeleteUser">
+    <part name="parameters" element="tns:DeleteUser" />
+  </message>
+  <message name="DeleteUser_Result">
+    <part name="parameters" element="tns:DeleteUser_Result" />
+  </message>
+  <message name="AuthenticateUser">
+    <part name="parameters" element="tns:AuthenticateUser" />
+  </message>
+  <message name="AuthenticateUser_Result">
+    <part name="parameters" element="tns:AuthenticateUser_Result" />
+  </message>
+  <portType name="ExportUsers_Port">
+    <operation name="ExportUser">
+      <input name="ExportUser" message="tns:ExportUser" />
+      <output name="ExportUser_Result" message="tns:ExportUser_Result" />
+    </operation>
+    <operation name="InsertUser">
+      <input name="InsertUser" message="tns:InsertUser" />
+      <output name="InsertUser_Result" message="tns:InsertUser_Result" />
+    </operation>
+    <operation name="DeleteUser">
+      <input name="DeleteUser" message="tns:DeleteUser" />
+      <output name="DeleteUser_Result" message="tns:DeleteUser_Result" />
+    </operation>
+    <operation name="AuthenticateUser">
+      <input name="AuthenticateUser" message="tns:AuthenticateUser" />
+      <output name="AuthenticateUser_Result" message="tns:AuthenticateUser_Result" />
+    </operation>
+  </portType>
+  <binding name="ExportUsers_Binding" type="tns:ExportUsers_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="ExportUser">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportUsers:ExportUser" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="ExportUser">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="ExportUser_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="InsertUser">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportUsers:InsertUser" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="InsertUser">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="InsertUser_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="DeleteUser">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportUsers:DeleteUser" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="DeleteUser">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="DeleteUser_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="AuthenticateUser">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/ExportUsers:AuthenticateUser" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="AuthenticateUser">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="AuthenticateUser_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ExportUsers">
+    <port name="ExportUsers_Port" binding="tns:ExportUsers_Binding">
+      <address location="http://localhost:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/ExportUsers" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>
