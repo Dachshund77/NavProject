@@ -43,9 +43,9 @@ namespace Backend
 
                 //Add MockedServiced if in Debug, real services if not
 #if DEBUG
-                AddMockedServices(services); //Do i need ref mb here?
+                AddMockedServices(ref services); //Do i need ref mb here?
 #else
-            AddRealServices(services);          
+            AddRealServices(ref services);          
 #endif
                 
             }
@@ -89,20 +89,20 @@ namespace Backend
         /// Helper methods that registers services for productions.
         /// </summary>
         /// <param name="services"></param>
-        private void AddRealServices(IServiceCollection services)
-        {
-            services.AddTransient<INavAuthService, NavAuthService>();
-            services.AddTransient<INavBasketsService, NavBasketsService>();
+        private void AddRealServices(ref IServiceCollection services)
+        {         
             services.AddTransient<INavProductsService, NavProductsService>();
             services.AddTransient<INavTransactionsService, NavTransactionsService>();
+            services.AddTransient<INavBasketsService, NavBasketsService>();                     
             services.AddTransient<INavUsersService, NavUsersService>();
+            services.AddTransient<INavAuthService, NavAuthService>();
         }
 
         /// <summary>
         /// Helper methods that registers Mocked services for Debug
         /// </summary>
         /// <param name="services"></param>
-        private void AddMockedServices(IServiceCollection services)
+        private void AddMockedServices(ref IServiceCollection services)
         {
             services.AddTransient<INavAuthService, NavAuthServiceMock>();
             services.AddTransient<INavBasketsService, NavBasketsServiceMock>();

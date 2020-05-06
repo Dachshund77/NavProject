@@ -228,20 +228,38 @@ namespace Commons.Domain
 
         public static Transaction GetMockTransaction(int transactionID)
         {
-            List<Transaction> transactions = GetMockTransactions();
-            return transactions[transactionID - 1];
+            try
+            {
+                List<Transaction> transactions = GetMockTransactions();
+                return transactions[transactionID - 1];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }           
         }
 
         public static List<Transaction> GetMockTransactions()
         {
-            List<Transaction> transactions = new List<Transaction>();
+            try
+            {
+                List<Transaction> transactions = new List<Transaction>();
 
-            transactions.Add(new Transaction(1, new DateTime(2020, 1, 15), PaymentType.Card, 700));
-            transactions.Add(new Transaction(2, new DateTime(2019, 4, 8), PaymentType.Check, 70));
-            transactions.Add(new Transaction(3, new DateTime(2020, 11, 4), PaymentType.Card, 7200));
-            transactions.Add(new Transaction(4, new DateTime(2028, 3, 7), PaymentType.Card, 800));
+                transactions.Add(new Transaction(1, new DateTime(2020, 1, 15), PaymentType.Card, 700));
+                transactions.Add(new Transaction(2, new DateTime(2019, 4, 8), PaymentType.Check, 70));
+                transactions.Add(new Transaction(3, new DateTime(2020, 11, 4), PaymentType.Card, 7200));
+                transactions.Add(new Transaction(4, new DateTime(2028, 3, 7), PaymentType.Card, 800));
 
-            return transactions;
+                return transactions;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }      
         }
     }
 }

@@ -274,18 +274,36 @@ namespace Commons.Domain
 
         public static Product GetMockProduct(string barcode)
         {
-            List<Product> products = GetMockProducts();
-            return products.Where(x => x.Barcode.Equals(barcode)).FirstOrDefault();
+            try
+            {
+                List<Product> products = GetMockProducts();
+                return products.Where(x => x.Barcode.Equals(barcode)).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }        
         }
 
         public static List<Product> GetMockProducts()
         {
-            List<Product> products = new List<Product>();
-            products.Add(new Product("fasdfsadfasf", "Apple", "Green Apple", 5.99, 4));
-            products.Add(new Product("fasdfgsdnhrasfassadfasf", "Bannana", "Blue Bananan", 8.99, 5));
-            products.Add(new Product("afafukghkgsfa", "Cat", "Red Care", 566.99, 2));
+            try
+            {
+                List<Product> products = new List<Product>();
+                products.Add(new Product("fasdfsadfasf", "Apple", "Green Apple", 5.99, 4));
+                products.Add(new Product("fasdfgsdnhrasfassadfasf", "Bannana", "Blue Bananan", 8.99, 5));
+                products.Add(new Product("afafukghkgsfa", "Cat", "Red Care", 566.99, 2));
 
-            return products;
+                return products;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw; //We just want the error log here
+            }          
         }
     }
 }
