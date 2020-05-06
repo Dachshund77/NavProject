@@ -90,12 +90,21 @@ namespace Backend
         /// </summary>
         /// <param name="services"></param>
         private void AddRealServices(ref IServiceCollection services)
-        {         
-            services.AddTransient<INavProductsService, NavProductsService>();
-            services.AddTransient<INavTransactionsService, NavTransactionsService>();
-            services.AddTransient<INavBasketsService, NavBasketsService>();                     
-            services.AddTransient<INavUsersService, NavUsersService>();
-            services.AddTransient<INavAuthService, NavAuthService>();
+        {
+            try
+            {
+                services.AddTransient<INavProductsService, NavProductsService>();
+                services.AddTransient<INavTransactionsService, NavTransactionsService>();
+                services.AddTransient<INavBasketsService, NavBasketsService>();
+                services.AddTransient<INavUsersService, NavUsersService>();
+                services.AddTransient<INavAuthService, NavAuthService>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }        
         }
 
         /// <summary>
@@ -104,11 +113,20 @@ namespace Backend
         /// <param name="services"></param>
         private void AddMockedServices(ref IServiceCollection services)
         {
-            services.AddTransient<INavAuthService, NavAuthServiceMock>();
-            services.AddTransient<INavBasketsService, NavBasketsServiceMock>();
-            services.AddTransient<INavProductsService, NavProductsServiceMock>();
-            services.AddTransient<INavTransactionsService, NavTransactionsServiceMock>();
-            services.AddTransient<INavUsersService, NavUsersServiceMock>();
+            try
+            {
+                services.AddTransient<INavAuthService, NavAuthServiceMock>();
+                services.AddTransient<INavBasketsService, NavBasketsServiceMock>();
+                services.AddTransient<INavProductsService, NavProductsServiceMock>();
+                services.AddTransient<INavTransactionsService, NavTransactionsServiceMock>();
+                services.AddTransient<INavUsersService, NavUsersServiceMock>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }        
         }
     }
 }

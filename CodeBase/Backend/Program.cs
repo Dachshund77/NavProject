@@ -13,7 +13,17 @@ namespace Backend
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw e;
+            }
+            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

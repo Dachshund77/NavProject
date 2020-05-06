@@ -18,7 +18,7 @@ namespace Commons.Domain
         }
         public DateTime TimePaid
         {
-            get { return TimePaid; }
+            get { return timePaid; }
             set { SetProperty(ref timePaid, value); }
         }
         public PaymentType PaymentType

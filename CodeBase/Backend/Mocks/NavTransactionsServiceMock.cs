@@ -15,8 +15,7 @@ namespace Backend.Mocks
 
         public List<Transaction> GetTransactionsOfBasket(int basketID)
         {
-            //List<Basket> baskets = NavBasketsServiceMock.GetMockBaskets();
-            List<Basket> baskets = null;
+            List<Basket> baskets = Basket.GetMockBaskets();
             Basket selectedBasket = baskets.Where(x => x.ID == basketID).FirstOrDefault();
             return selectedBasket.Transactions.ToList();
         }
